@@ -31,6 +31,9 @@ from .common import db, session, T, cache, auth, logger, authenticated, unauthen
 from py4web.utils.url_signer import URLSigner
 from .models import get_user_email
 import json
+from .settings import APP_FOLDER
+import os
+
 
 url_signer = URLSigner(session)
 
@@ -38,7 +41,8 @@ url_signer = URLSigner(session)
 @action.uses(db, auth, 'index.html')
 def index():
     headers = ["Bird Species", "Weight", "Diet", "Habitat"]
-    f = open('./apps/hw2/data/table.json')
+    JSON_FILE = os.path.join(APP_FOLDER, "data", "table.json")
+    f = open(JSON_FILE)
     data = json.load(f)
 
     return dict(
